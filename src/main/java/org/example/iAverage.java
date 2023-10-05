@@ -1,2 +1,5 @@
-package org.example;public interface iAverage {
+package org.example;
+
+public interface iAverage<T> {
+    int average(T t);
 }

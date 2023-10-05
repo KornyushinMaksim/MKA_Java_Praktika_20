@@ -1,5 +1,5 @@
 package org.example;
 
-public interface Randomaiser {
-    void randomItem();
+public interface iRandomaiser<T> {
+    T randomItem();
 }

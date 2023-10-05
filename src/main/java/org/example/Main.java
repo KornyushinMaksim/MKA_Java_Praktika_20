@@ -1,19 +1,82 @@
 package org.example;
 
-// Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
-// then press Enter. You can now see whitespace characters in your code.
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        // Press Opt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Scanner in = new Scanner(System.in);
+        MyArray<String> myArray = new MyArray<>();
 
-        // Press Ctrl+R or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        myArray.addItem(in.nextLine());
+        myArray.addItem(in.nextLine());
+        myArray.addItem(in.nextLine());
+        System.out.println(myArray);
 
-            // Press Ctrl+D to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Cmd+F8.
-            System.out.println("i = " + i);
-        }
+        myArray.fillRand(13, new iRandomaiser() {
+            @Override
+            public String randomItem() {
+                int step = (int) (Math.random() * 15 + 1);
+                String str = "";
+                for (int i = 0; i < step; i++){
+                    str += (char) (Math.random() * 26 + 97);
+                }
+                return str;
+            }
+        });
+        System.out.println(myArray);
+
+        String min  = myArray.searchMaxMin(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        System.out.println(min);
+
+        String max = myArray.searchMaxMin(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        System.out.println(max);
+
+        int aver = myArray.average(new iAverage<String>() {
+            @Override
+            public int average(String s) {
+                int summ = 0;
+                for (int i = 0; i < s.length(); i++){
+                    summ += s.charAt(i);
+                }
+                return summ / s.length();
+            }
+        });
+        System.out.println(aver);
+
+        myArray.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        System.out.println(myArray);
+
+        myArray.sort(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        System.out.println(myArray);
+
+        int resSearch = myArray.search(in.nextLine(), new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+        System.out.println(resSearch);
     }
 }
